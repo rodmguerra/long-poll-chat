@@ -1,5 +1,6 @@
-package com.cosmocoder.longpollchat;
+package com.cosmocoder.longpollchat.config;
 
+import com.cosmocoder.longpollchat.config.AppConfig;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;

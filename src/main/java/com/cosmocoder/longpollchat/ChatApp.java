@@ -1,5 +1,10 @@
 package com.cosmocoder.longpollchat;
 
+import com.cosmocoder.longpollchat.domain.ChatMessage;
+import com.cosmocoder.longpollchat.domain.ChatMessageRepository;
+import com.cosmocoder.longpollchat.domain.User;
+import com.cosmocoder.longpollchat.support.Listener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -15,8 +20,11 @@ public class ChatApp {
 
     private final ConcurrentHashMap<String, User> users;
     private final Lock lock;
+    private final ChatMessageRepository chatMessageRepository;
 
-    public ChatApp() {
+    @Autowired
+    public ChatApp(ChatMessageRepository repository) {
+        this.chatMessageRepository = repository;
         this.users = new ConcurrentHashMap<String, User>();
         this.lock = new ReentrantLock();
     }
@@ -36,11 +44,15 @@ public class ChatApp {
     }
 
     public void listenToStatusMessages(String id, Listener<String> listener) {
-        users.get(id).setStatusMessageListener(listener);
+        if (users.contains(id)) {
+            users.get(id).setStatusMessageListener(listener);
+        }
     }
 
     public void listenToChatMessages(String id, Listener<String> listener) {
-        users.get(id).setChatMessageListener(listener);
+        if (users.contains(id)) {
+            users.get(id).setChatMessageListener(listener);
+        }
     }
 
     public String sendChatMessage(String id, String message) {
@@ -53,6 +65,7 @@ public class ChatApp {
             for (User user : otherUsers) {
                 user.sendChatMessage(otherUsersMessage);
             }
+            chatMessageRepository.save(new ChatMessage(currentUser, message));
         } finally {
             lock.unlock();
         }

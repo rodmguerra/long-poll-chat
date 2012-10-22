@@ -1,4 +1,4 @@
-package com.cosmocoder.longpollchat;
+package com.cosmocoder.longpollchat.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.context.annotation.Bean;
@@ -19,10 +19,11 @@ import java.util.Properties;
 
 @Configuration
 @ComponentScan(basePackages = AppConfig.BASE_PACKAGE)
-@EnableJpaRepositories(basePackages = AppConfig.BASE_PACKAGE)
+@EnableJpaRepositories(basePackages = AppConfig.DOMAIN_CLASS_PACKAGE)
 public class AppConfig extends WebMvcConfigurationSupport {
 
     public static final String BASE_PACKAGE = "com.cosmocoder.longpollchat";
+    public static final String DOMAIN_CLASS_PACKAGE = AppConfig.BASE_PACKAGE + ".domain";
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -46,7 +47,7 @@ public class AppConfig extends WebMvcConfigurationSupport {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws Exception {
         LocalContainerEntityManagerFactoryBean b = new LocalContainerEntityManagerFactoryBean();
         b.setDataSource(dataSource());
-        b.setPackagesToScan(BASE_PACKAGE);
+        b.setPackagesToScan(DOMAIN_CLASS_PACKAGE);
         b.setPersistenceProviderClass(org.hibernate.ejb.HibernatePersistence.class);
         b.setJpaDialect(new org.springframework.orm.jpa.vendor.HibernateJpaDialect());
         Properties props = new Properties();

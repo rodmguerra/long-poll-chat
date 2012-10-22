@@ -1,4 +1,4 @@
-package com.cosmocoder.longpollchat;
+package com.cosmocoder.longpollchat.support;
 
 import org.springframework.web.context.request.async.DeferredResult;
 

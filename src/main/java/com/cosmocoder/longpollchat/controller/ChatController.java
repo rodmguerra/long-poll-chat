@@ -1,5 +1,7 @@
-package com.cosmocoder.longpollchat;
+package com.cosmocoder.longpollchat.controller;
 
+import com.cosmocoder.longpollchat.ChatApp;
+import com.cosmocoder.longpollchat.support.SpringMvcDeferredResultListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
