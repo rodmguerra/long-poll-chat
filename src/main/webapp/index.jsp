@@ -12,7 +12,7 @@
 <div id="joinRoomDiv">
     <h2>Insert your name and click join:</h2>
     <input type="text" name="user" data-bind="value: userName"/>
-    <input type="button" value="joinRoom" data-bind="click: joinRoom"/>
+    <input type="button" value="join" data-bind="click: joinRoom"/>
 </div>
 <br/>
 <div id="chatMessagesDiv">
