@@ -32,6 +32,7 @@ var ChatView = function() {
      self.sendChatMessage = function(data) {
          $.get("/chat/sendChatMessage", {message: self.message()}, function(data){
              self.chatMessages.push(data);
+             self.message("");
          });
      }
  }
